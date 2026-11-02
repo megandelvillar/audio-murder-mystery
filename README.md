@@ -3,13 +3,10 @@
 An interactive, sound-driven murder mystery. You are the investigator, and you
 have to figure out who committed the murder by interrogating three suspects.
 
-There is no fixed storyline. You decide who to question and what to ask, and the
+There is no fixed storyline so you decide who to question and what to ask, and the
 story slowly comes together through the voice recordings you hear. Sound is the
-main way the story is told: voices, and sound effects (breaking glass, a knife,
+main way the story is told: voices and sound effects (breaking glass, a knife,
 a car crash, laughter) that match what the suspect is remembering.
-
-> Status: just started. This is the first hour of the project, so most things
-> are placeholders.
 
 ## How it will work
 
