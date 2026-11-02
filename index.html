@@ -3,26 +3,273 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Audio Murder Mystery</title>
+  <title>Murder on Record</title>
+  <meta name="description" content="An audio murder mystery. Interview the suspects, listen closely and find the killer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Reenie+Beanie&family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/cases.css">
 </head>
 <body>
-  <main>
-    <h1>Audio Murder Mystery</h1>
-    <p>Someone has been murdered. Choose a suspect, then ask a question. Listen closely.</p>
+  <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <pattern id="hatch-bone" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+        <line x1="0" y1="0" x2="0" y2="7" stroke="#e9e1cf" stroke-width="1.2"/>
+      </pattern>
+      <pattern id="hatch-ink" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)">
+        <line x1="0" y1="0" x2="0" y2="6" stroke="#0b0a0a" stroke-width="1.4"/>
+      </pattern>
+      <radialGradient id="moon-glow">
+        <stop offset="0" stop-color="#e9e1cf" stop-opacity=".28"/>
+        <stop offset="1" stop-color="#e9e1cf" stop-opacity="0"/>
+      </radialGradient>
+      <symbol id="crow" viewBox="0 0 80 70">
+        <g fill="#050404" stroke="#e9e1cf" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M18 47 L1 60 L22 54 Z"/>
+          <ellipse cx="38" cy="36" rx="23" ry="14" transform="rotate(-18 38 36)"/>
+          <circle cx="58" cy="21" r="9"/>
+          <path d="M65 19 L80 24 L65 27 Z"/>
+          <path d="M36 49 L34 64 M42 49 L42 64" fill="none"/>
+        </g>
+        <circle cx="60" cy="19" r="2" fill="#e9e1cf"/>
+      </symbol>
+    </defs>
+  </svg>
 
-    <h2>1. Choose a suspect</h2>
-    <div id="suspects"></div>
+  <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="true">Sound on</button>
 
-    <h2>2. Ask a question</h2>
-    <div id="questions"></div>
+  <main id="app">
+    <section class="screen screen--gate is-active" id="screen-gate">
+      <div class="gate">
+        <p class="gate__note">This case is told through sound.<br>Headphones recommended.</p>
+        <button class="gate__play" id="gate-play" type="button" aria-label="Press play to begin">
+          <span class="gate__ring"></span>
+          <span class="gate__ring gate__ring--delay"></span>
+          <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M13 8 L33 20 L13 32 Z" fill="currentColor"/></svg>
+        </button>
+        <p class="gate__label">Press play</p>
+      </div>
+    </section>
 
-    <p id="status">Pick a suspect to begin.</p>
+    <section class="screen screen--landing" id="screen-landing">
+      <div class="scene" aria-hidden="true">
+        <div class="scene__fog scene__fog--back"></div>
+        <svg class="scene__art" viewBox="0 0 1200 700" preserveAspectRatio="xMaxYMax slice">
+          <circle cx="930" cy="150" r="260" fill="url(#moon-glow)"/>
+          <circle cx="930" cy="150" r="68" fill="#e9e1cf"/>
+          <circle cx="930" cy="150" r="68" fill="url(#hatch-ink)" opacity=".5"/>
+          <circle cx="958" cy="132" r="9" fill="#0b0a0a" opacity=".35"/>
+          <circle cx="912" cy="172" r="6" fill="#0b0a0a" opacity=".3"/>
+
+          <g stroke="#e9e1cf" stroke-width="1.2" fill="none" opacity=".22" stroke-linecap="round">
+            <path d="M0 560 C 150 548 300 566 450 556 S 700 548 850 560"/>
+            <path d="M300 575 C 450 566 600 580 760 572 S 1000 566 1200 574"/>
+            <path d="M0 585 C 120 580 260 590 380 584"/>
+          </g>
+
+          <rect x="740" y="278" width="26" height="46" fill="#050404" stroke="#e9e1cf" stroke-width="2"/>
+          <rect x="700" y="346" width="240" height="252" fill="#050404" stroke="#e9e1cf" stroke-width="2"/>
+          <rect x="700" y="346" width="240" height="252" fill="url(#hatch-bone)" opacity=".16"/>
+          <polygon points="684,352 820,254 956,352" fill="#050404" stroke="#e9e1cf" stroke-width="2" stroke-linejoin="round"/>
+          <polygon points="684,352 820,254 956,352" fill="url(#hatch-bone)" opacity=".2"/>
+          <rect x="940" y="266" width="92" height="332" fill="#050404" stroke="#e9e1cf" stroke-width="2"/>
+          <rect x="940" y="266" width="92" height="332" fill="url(#hatch-bone)" opacity=".24"/>
+          <polygon points="930,272 986,160 1042,272" fill="#050404" stroke="#e9e1cf" stroke-width="2" stroke-linejoin="round"/>
+          <line x1="986" y1="160" x2="986" y2="128" stroke="#e9e1cf" stroke-width="2"/>
+          <path d="M986 130 L1006 136 L986 142 Z" fill="#e9e1cf"/>
+
+          <g class="scene__window">
+            <rect x="745" y="404" width="38" height="58" fill="#e9e1cf"/>
+            <path d="M764 404 V462 M745 433 H783" stroke="#050404" stroke-width="3"/>
+          </g>
+          <rect x="857" y="404" width="38" height="58" fill="#0b0a0a" stroke="#e9e1cf" stroke-width="2"/>
+          <path d="M876 404 V462 M857 433 H895" stroke="#e9e1cf" stroke-width="1.5"/>
+          <rect x="964" y="332" width="30" height="48" rx="15" fill="#0b0a0a" stroke="#e9e1cf" stroke-width="2"/>
+          <circle cx="820" cy="316" r="15" fill="#0b0a0a" stroke="#e9e1cf" stroke-width="2"/>
+          <path d="M798 598 V528 a22 22 0 0 1 44 0 V598 Z" fill="#0b0a0a" stroke="#e9e1cf" stroke-width="2"/>
+          <circle cx="831" cy="560" r="2.5" fill="#e9e1cf"/>
+
+          <g stroke="#e9e1cf" stroke-width="2" stroke-linecap="round">
+            <path d="M600 598 V540 M624 598 V536 M648 598 V540 M672 598 V536 M696 598 V540"/>
+            <path d="M592 548 H700"/>
+          </g>
+
+          <g class="scene__tree" fill="none" stroke="#050404" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M262 604 C 268 520 248 470 266 400" stroke-width="20"/>
+            <path d="M266 412 C 220 372 190 340 150 282" stroke-width="11"/>
+            <path d="M264 432 C 318 392 350 352 396 302" stroke-width="11"/>
+            <path d="M260 472 C 214 452 180 442 130 402" stroke-width="8"/>
+            <path d="M268 382 C 274 332 264 302 284 242" stroke-width="8"/>
+            <path d="M150 282 C 130 262 120 242 100 226 M150 282 C 164 256 160 236 176 216" stroke-width="4"/>
+            <path d="M396 302 C 410 282 430 276 452 252 M396 302 C 386 276 396 256 380 236" stroke-width="4"/>
+            <path d="M284 242 C 300 222 320 216 336 196 M284 242 C 270 222 266 206 256 186" stroke-width="4"/>
+            <path d="M130 402 C 110 396 96 382 80 376" stroke-width="4"/>
+          </g>
+          <g fill="none" stroke="#e9e1cf" stroke-width="1.4" stroke-linecap="round" opacity=".55">
+            <path d="M255 600 C 258 540 242 480 256 410 M262 604 C 264 540 252 480 270 420"/>
+            <path d="M268 412 C 222 372 192 340 152 284 M262 430 C 316 390 348 350 394 300"/>
+          </g>
+          <use href="#crow" x="368" y="252" width="64" height="56"/>
+          <use href="#crow" x="620" y="486" width="54" height="47" transform="scale(1)"/>
+          <path d="M0 596 C 200 580 400 612 600 598 S 1000 602 1200 592 V700 H0 Z" fill="#050404"/>
+          <path d="M0 596 C 200 580 400 612 600 598 S 1000 602 1200 592" fill="none" stroke="#e9e1cf" stroke-width="2"/>
+        </svg>
+        <div class="scene__fog scene__fog--front"></div>
+        <svg class="scene__crack" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke="#e9e1cf" stroke-linecap="round" stroke-linejoin="round">
+            <path pathLength="1" style="--d:0s" d="M66 38 L58 33 L55 24 L47 19 L45 8 L40 0"/>
+            <path pathLength="1" style="--d:.05s" d="M66 38 L60 46 L52 49 L49 58 L41 63 L38 74 L30 80 L26 100"/>
+            <path pathLength="1" style="--d:.1s" d="M66 38 L74 30 L78 20 L87 15 L90 4 L96 0"/>
+            <path pathLength="1" style="--d:.08s" d="M66 38 L76 44 L83 52 L90 54 L95 64 L100 68"/>
+            <path pathLength="1" style="--d:.12s" d="M66 38 L68 50 L66 60 L72 70 L70 82 L76 100"/>
+            <path pathLength="1" style="--d:.06s" d="M66 38 L56 38 L46 40 L36 37 L25 41 L12 38 L0 44"/>
+            <path pathLength="1" style="--d:.25s" d="M55 24 L62 20 L63 12"/>
+            <path pathLength="1" style="--d:.3s" d="M52 49 L56 56 L54 63"/>
+            <path pathLength="1" style="--d:.28s" d="M83 52 L84 60 L90 66"/>
+            <path pathLength="1" style="--d:.32s" d="M36 37 L34 30 L28 26"/>
+            <path pathLength="1" style="--d:.02s" d="M62 33 L66 30 L71 33 L72 39 L69 43 L63 43 L60 38 Z"/>
+          </g>
+        </svg>
+        <div class="scene__flash"></div>
+      </div>
+
+      <div class="landing">
+        <header class="topbar">
+          <span>Homicide Division &mdash; Audio Archive</span>
+          <span class="rec">Rec</span>
+        </header>
+
+        <div class="landing__main">
+          <h1 class="title" aria-label="Murder on Record">
+            <span class="title__line" style="--i:0" aria-hidden="true">Murder</span>
+            <span class="title__line" style="--i:1" aria-hidden="true">on Record</span>
+          </h1>
+          <p class="tagline">Every voice is a witness. One of them is lying.</p>
+
+          <div class="call" aria-live="polite">
+            <div class="call__head">
+              <span class="call__status"><i class="call__dot"></i>Incoming call</span>
+              <span>03:17 AM</span>
+            </div>
+            <p class="call__text" id="call-text"></p>
+            <div class="call__options" id="call-options">
+              <button class="btn btn--ink" type="button" data-answer="here">I'm here.</button>
+              <button class="btn btn--ink" type="button" data-answer="who">Who is this?</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen screen--cases" id="screen-cases">
+      <div class="board" id="board">
+        <div class="board__light"></div>
+        <header class="topbar">
+          <span>Homicide Division &mdash; Case Archive</span>
+          <span class="rec">Rec</span>
+        </header>
+
+        <div class="board__heading">
+          <h2 class="board__title">Choose a tape</h2>
+          <p class="board__lede">Three cases. Only the first tape is cleared for listening.</p>
+        </div>
+
+        <button class="polaroid polaroid--one" type="button" data-case="tape-1" data-state="open" aria-label="Open Tape No. 1">
+          <span class="polaroid__tape"></span>
+          <span class="polaroid__frame">
+            <span class="polaroid__photo">
+              <svg viewBox="0 0 300 300" aria-hidden="true">
+                <rect width="300" height="300" fill="#0b0a0a"/>
+                <rect width="300" height="300" fill="url(#hatch-bone)" opacity=".14"/>
+                <path d="M70 0 H230 L292 300 H8 Z" fill="#e9e1cf" opacity=".09"/>
+                <rect y="262" width="300" height="38" fill="#050404"/>
+                <g transform="rotate(-6 150 150)">
+                  <path d="M126 190 C 120 234 62 228 74 270 S 152 286 164 258" fill="none" stroke="#b9b09b" stroke-width="3" stroke-linecap="round"/>
+                  <rect x="48" y="86" width="204" height="124" rx="10" fill="#1b1617" stroke="#e9e1cf" stroke-width="3"/>
+                  <rect x="64" y="98" width="172" height="52" rx="4" fill="#e9e1cf"/>
+                  <text x="150" y="133" text-anchor="middle" font-family="Special Elite, monospace" font-size="21" fill="#0b0a0a">TAPE No. 1</text>
+                  <rect x="98" y="158" width="104" height="36" rx="18" fill="#0b0a0a" stroke="#e9e1cf" stroke-width="2"/>
+                  <circle cx="126" cy="176" r="12" fill="#0b0a0a" stroke="#e9e1cf" stroke-width="2"/>
+                  <circle cx="174" cy="176" r="12" fill="#0b0a0a" stroke="#e9e1cf" stroke-width="2"/>
+                  <path d="M126 166 V186 M116 176 H136 M174 166 V186 M164 176 H184" stroke="#e9e1cf" stroke-width="1.5"/>
+                  <g fill="#e9e1cf"><circle cx="58" cy="96" r="3"/><circle cx="242" cy="96" r="3"/><circle cx="58" cy="200" r="3"/><circle cx="242" cy="200" r="3"/></g>
+                </g>
+                <circle cx="268" cy="34" r="7" fill="#b5303f"/>
+              </svg>
+            </span>
+            <span class="polaroid__caption">Tape No. 1</span>
+            <span class="polaroid__stamp">Listen</span>
+          </span>
+        </button>
+
+        <button class="polaroid polaroid--two" type="button" data-case="tape-2" data-state="locked" aria-disabled="true" aria-label="Tape No. 2, locked">
+          <svg class="polaroid__crow" viewBox="0 0 80 70" aria-hidden="true"><use href="#crow"/></svg>
+          <span class="polaroid__tape"></span>
+          <span class="polaroid__frame">
+            <span class="polaroid__photo">
+              <svg viewBox="0 0 300 300" aria-hidden="true">
+                <rect width="300" height="300" fill="#0b0a0a"/>
+                <rect width="300" height="300" fill="url(#hatch-bone)" opacity=".12"/>
+                <path d="M40 300 C 44 232 92 216 150 214 C 208 216 256 232 260 300 Z" fill="#050404" stroke="#e9e1cf" stroke-width="2"/>
+                <ellipse cx="150" cy="140" rx="46" ry="58" fill="#050404" stroke="#e9e1cf" stroke-width="2"/>
+                <ellipse cx="150" cy="140" rx="46" ry="58" fill="url(#hatch-bone)" opacity=".3"/>
+                <path d="M-10 70 L310 250 M-10 250 L310 70" stroke="#b9b09b" stroke-width="9" stroke-dasharray="16 7" stroke-linecap="round" fill="none"/>
+                <g transform="translate(120 142)">
+                  <path d="M10 28 V16 a20 20 0 0 1 40 0 V28" fill="none" stroke="#e9e1cf" stroke-width="7"/>
+                  <rect y="26" width="60" height="48" rx="6" fill="#5e0f1b" stroke="#e9e1cf" stroke-width="3"/>
+                  <circle cx="30" cy="46" r="6" fill="#0b0a0a"/>
+                  <rect x="27" y="48" width="6" height="14" fill="#0b0a0a"/>
+                </g>
+              </svg>
+            </span>
+            <span class="polaroid__caption">Tape No. 2</span>
+            <span class="polaroid__hint">Locked. Solve Tape No. 1 first.</span>
+          </span>
+        </button>
+
+        <button class="polaroid polaroid--three" type="button" data-case="tape-3" data-state="locked" aria-disabled="true" aria-label="Tape No. 3, locked">
+          <span class="polaroid__tape"></span>
+          <span class="polaroid__frame">
+            <span class="polaroid__photo">
+              <svg viewBox="0 0 300 300" aria-hidden="true">
+                <rect width="300" height="300" fill="#0b0a0a"/>
+                <rect width="300" height="300" fill="url(#hatch-bone)" opacity=".12"/>
+                <path d="M70 300 C 70 250 110 232 150 230 C 190 232 230 250 230 300 Z" fill="#050404" stroke="#e9e1cf" stroke-width="2"/>
+                <path d="M104 120 C 104 70 130 52 150 52 C 170 52 196 70 196 120 C 196 170 172 196 150 196 C 128 196 104 170 104 120 Z" fill="#050404" stroke="#e9e1cf" stroke-width="2"/>
+                <path d="M104 120 C 104 70 130 52 150 52 C 170 52 196 70 196 120 C 196 170 172 196 150 196 C 128 196 104 170 104 120 Z" fill="url(#hatch-bone)" opacity=".3"/>
+                <path d="M-10 70 L310 250 M-10 250 L310 70" stroke="#b9b09b" stroke-width="9" stroke-dasharray="16 7" stroke-linecap="round" fill="none"/>
+                <g transform="translate(120 142)">
+                  <path d="M10 28 V16 a20 20 0 0 1 40 0 V28" fill="none" stroke="#e9e1cf" stroke-width="7"/>
+                  <rect y="26" width="60" height="48" rx="6" fill="#5e0f1b" stroke="#e9e1cf" stroke-width="3"/>
+                  <circle cx="30" cy="46" r="6" fill="#0b0a0a"/>
+                  <rect x="27" y="48" width="6" height="14" fill="#0b0a0a"/>
+                </g>
+              </svg>
+            </span>
+            <span class="polaroid__caption">Tape No. 3</span>
+            <span class="polaroid__hint">Locked. Solve Tape No. 2 first.</span>
+          </span>
+        </button>
+
+        <p class="board__note">Three tapes.<br>Three murders.<br>One investigator.</p>
+        <span class="board__stain" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="screen screen--casefile" id="screen-casefile">
+      <div class="casefile">
+        <p class="casefile__label">Tape No. 1</p>
+        <h2 class="casefile__title">Opening the case file</h2>
+        <button class="btn" type="button" data-action="back">Back to the tapes</button>
+      </div>
+    </section>
   </main>
 
-  <!-- order matters: data first, then the code that uses it -->
-  <script src="js/categories.js"></script>
-  <script src="js/suspects.js"></script>
+  <div class="wipe" id="wipe" aria-hidden="true"></div>
+
+  <script src="js/audio.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
