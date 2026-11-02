@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audio Murder Mystery</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main>
+    <h1>Audio Murder Mystery</h1>
+    <p>Someone has been murdered. Choose a suspect, then ask a question. Listen closely.</p>
+
+    <h2>1. Choose a suspect</h2>
+    <div id="suspects"></div>
+
+    <h2>2. Ask a question</h2>
+    <div id="questions"></div>
+
+    <p id="status">Pick a suspect to begin.</p>
+  </main>
+
+  <!-- order matters: data first, then the code that uses it -->
+  <script src="js/categories.js"></script>
+  <script src="js/suspects.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

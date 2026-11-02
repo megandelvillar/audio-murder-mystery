@@ -1,0 +1,28 @@
+/* Very basic dark look for now. We will design it properly later. */
+body {
+  background: #15151a;
+  color: #eee;
+  font-family: Georgia, serif;
+  margin: 0;
+}
+
+main {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+button {
+  background: #2a2a33;
+  color: #eee;
+  border: 1px solid #555;
+  padding: 10px 14px;
+  margin: 4px 4px 4px 0;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover { background: #3a3a46; }
+
+/* the suspect that is currently selected */
+button.selected { border-color: #d4a017; color: #d4a017; }
