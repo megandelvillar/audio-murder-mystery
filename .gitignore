@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# editor files
+.vscode/
+.idea/
+
+# raw recordings that are too big (keep only the exported versions)
+audio/raw/
