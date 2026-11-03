@@ -292,39 +292,6 @@
   transition: opacity 0.6s;
 }
 
-.screen--casefile {
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(94, 15, 27, 0.4), transparent 70%),
-    var(--ink-deep);
-}
-
-.casefile {
-  display: grid;
-  justify-items: center;
-  gap: 1.2rem;
-  padding: 1.5rem;
-  text-align: center;
-}
-
-.casefile__label {
-  margin: 0;
-  font-family: var(--font-type);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--bone-dim);
-}
-
-.casefile__title {
-  margin: 0 0 1rem;
-  font-weight: 900;
-  font-stretch: 62%;
-  font-size: clamp(3rem, 10vw, 8rem);
-  line-height: 0.9;
-  text-transform: uppercase;
-}
-
 @keyframes pulse {
   0%, 100% { box-shadow: 0 18px 36px rgba(0, 0, 0, 0.7), 0 0 0 0 rgba(181, 48, 63, 0); }
   50% { box-shadow: 0 18px 36px rgba(0, 0, 0, 0.7), 0 0 28px 4px rgba(181, 48, 63, 0.45); }
