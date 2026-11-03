@@ -134,6 +134,7 @@
     board.classList.add("is-leaving");
     await wait(750);
     await wipeTo("casefile");
+    CaseFile.enter();
     card.classList.remove("is-picked");
     board.classList.remove("is-leaving");
     opening = false;
@@ -160,6 +161,7 @@
 
   screens.casefile.querySelector("[data-action='back']").addEventListener("click", () => {
     GameAudio.play("paper", { volume: 0.6 });
+    CaseFile.leave();
     wipeTo("cases");
   });
 
