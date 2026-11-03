@@ -6,7 +6,8 @@ const GameAudio = (() => {
     phone: "audio/sfx/phone-ring.mp3",
     paper: "audio/sfx/paper-slide.mp3",
     rattle: "audio/sfx/chain-rattle.mp3",
-    tape: "audio/sfx/tape-click.mp3"
+    tape: "audio/sfx/tape-click.mp3",
+    intro: "audio/narrator/intro.mp3"
   };
 
   const sounds = new Map();

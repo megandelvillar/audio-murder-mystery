@@ -1,6 +1,6 @@
 # Sound list
 
-Files that Stage 1 expects in `audio/sfx/`. Until they exist, the game runs silently and the browser console shows 404 errors for the missing files.
+Files the game expects in `audio/sfx/` and `audio/narrator/`. Until they exist, the game runs silently and the browser console shows 404 errors for the missing files.
 
 | File | Where it plays | What it should sound like | Length |
 |------|----------------|---------------------------|--------|
@@ -11,6 +11,7 @@ Files that Stage 1 expects in `audio/sfx/`. Until they exist, the game runs sile
 | `paper-slide.mp3` | When an answer is chosen, and when going back | Paper sliding on a desk | under 1 s |
 | `chain-rattle.mp3` | When a locked tape is clicked | Short metal chain rattle | under 1 s |
 | `tape-click.mp3` | When Tape No. 1 is opened | Cassette player button click | under 1 s |
+| `narrator/intro.mp3` | When the case file opens, and on Play recording | Constable Doyle reading the opening statement, tape hiss and a click underneath | 25 to 35 s |
 
 ## Rules
 
