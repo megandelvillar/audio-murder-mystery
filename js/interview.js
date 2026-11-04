@@ -15,7 +15,6 @@ const Interview = (() => {
   const list = document.getElementById("questions");
   const hint = document.getElementById("interview-hint");
   const toast = document.getElementById("toast");
-  const concludeButton = root.querySelector("[data-action='conclude']");
 
   let current = null;
   let pending = null;
@@ -167,15 +166,12 @@ const Interview = (() => {
     if (slip) ask(slip);
   });
 
-  concludeButton.addEventListener("click", () => {
-    concludeButton.classList.remove("is-rattling");
-    void concludeButton.offsetWidth;
-    concludeButton.classList.add("is-rattling");
-    GameAudio.play("rattle", { volume: 0.7 });
-  });
-
   renderTabs();
   renderQuestions();
 
-  return { enter, leave };
+  function reset() {
+    current = null;
+  }
+
+  return { enter, leave, reset, currentId: () => (current ? current.id : null) };
 })();
