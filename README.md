@@ -25,10 +25,15 @@ audio-murder-mystery/
 ├── README.md        this file
 ├── docs/            project notes and ideas
 ├── audio/           all the sound files
-│   ├── suspect1/    recordings for suspect 1
-│   ├── suspect2/    recordings for suspect 2
-│   ├── suspect3/    recordings for suspect 3
+│   ├── scarlett/    recordings for Scarlett Ackroyd
+│   ├── verity/      recordings for Verity Ackroyd
+│   ├── julian/      recordings for Julian Paton
+│   ├── paloma/      recordings for Paloma Rogers
+│   ├── dante/       recordings for Dante Blunt
+│   ├── narrator/    Constable Doyle's recordings
 │   └── sfx/         sound effects (recorded by us or from free libraries)
+├── images/          character drawings (idle, talking, portrait)
+│   └── characters/
 ├── js/              the code
 └── css/             the styling
 ```
