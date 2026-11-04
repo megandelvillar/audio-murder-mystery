@@ -5,6 +5,7 @@
   const OPENING_LINE = "A murder has occurred, Sherlock. Are you available?";
   const DOUBT_LINE = "Someone who has run out of time. A murder has occurred. Are you available?";
   const CLOSING_LINE = "Good. Put your headphones on.";
+  const NOTEBOOK_SCREENS = ["casefile", "suspects", "interview"];
 
   const screens = {
     gate: document.getElementById("screen-gate"),
@@ -29,6 +30,7 @@
     Object.entries(screens).forEach(([key, element]) => {
       element.classList.toggle("is-active", key === name);
     });
+    Notebook.show(NOTEBOOK_SCREENS.includes(name));
   }
 
   async function wipeTo(name) {
