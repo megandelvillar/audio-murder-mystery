@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/landing.css">
   <link rel="stylesheet" href="css/cases.css">
   <link rel="stylesheet" href="css/casefile.css">
+  <link rel="stylesheet" href="css/suspects.css">
 </head>
 <body>
   <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
@@ -350,12 +351,52 @@
         </footer>
       </div>
     </section>
+
+    <section class="screen screen--suspects" id="screen-suspects">
+      <div class="suspects" id="suspects">
+        <header class="topbar">
+          <span>Homicide Division &mdash; Suspect Files</span>
+          <span class="rec">Rec</span>
+        </header>
+
+        <div class="suspects__head">
+          <p class="suspects__label">Tape No. 1</p>
+          <h2 class="suspects__title">Five statements</h2>
+          <p class="suspects__lede">Open a file. Study the face. You will only get six questions, so choose who you trust.</p>
+          <p class="suspects__budget" id="suspects-budget" aria-live="polite"></p>
+        </div>
+
+        <ul class="files" id="files"></ul>
+
+        <footer class="suspects__actions">
+          <button class="btn" type="button" data-action="back">Back to the case file</button>
+          <button class="btn btn--ghost" type="button" data-action="interview" aria-disabled="true">Start the interviews</button>
+        </footer>
+      </div>
+
+      <div class="sheet" id="sheet" hidden>
+        <div class="sheet__shade" data-action="close"></div>
+        <article class="sheet__paper" role="dialog" aria-modal="true" aria-labelledby="sheet-name">
+          <button class="sheet__close" type="button" data-action="close" aria-label="Close the file">&times;</button>
+          <div class="sheet__photo" id="sheet-photo"></div>
+          <div class="sheet__body">
+            <p class="sheet__role" id="sheet-role"></p>
+            <h3 class="sheet__name" id="sheet-name"></h3>
+            <p class="sheet__age" id="sheet-age"></p>
+            <dl class="sheet__facts" id="sheet-facts"></dl>
+            <p class="sheet__note" id="sheet-note"></p>
+          </div>
+        </article>
+      </div>
+    </section>
   </main>
 
   <div class="wipe" id="wipe" aria-hidden="true"></div>
 
   <script src="js/audio.js"></script>
   <script src="js/casefile.js"></script>
+  <script src="js/suspects.js"></script>
+  <script src="js/suspectfiles.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
