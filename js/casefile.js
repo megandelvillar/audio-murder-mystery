@@ -66,8 +66,16 @@ const CaseFile = (() => {
 
   replayButton.addEventListener("click", () => GameAudio.play("intro"));
 
+  function reset() {
+    unlocked.clear();
+    narrated = false;
+    list.replaceChildren();
+    renderTags();
+    updateCount();
+  }
+
   renderTags();
   updateCount();
 
-  return { enter, leave, unlock };
+  return { enter, leave, unlock, reset };
 })();
