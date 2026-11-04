@@ -185,3 +185,10 @@
   transform: rotate(-12deg) scale(1);
 }
 
+.suspects__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1.2rem;
+}
+
