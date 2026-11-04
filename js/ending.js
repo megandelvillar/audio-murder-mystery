@@ -2,23 +2,19 @@ const Ending = (() => {
   const ENDINGS = {
     solved: {
       title: "Case closed",
-      caption: "Right person, right reason, right way in.",
-      audio: "audio/narrator/ending-solved.mp3"
+      caption: "Right person, right reason, right way in."
     },
     weak: {
       title: "Right person, weak case",
-      caption: "You named the killer, but the story did not hold together.",
-      audio: "audio/narrator/ending-weak.mp3"
+      caption: "You named the killer, but the story did not hold together."
     },
     wrong: {
       title: "The wrong person",
-      caption: "An innocent name went on the report. The killer is still out there.",
-      audio: "audio/narrator/ending-wrong.mp3"
+      caption: "An innocent name went on the report. The killer is still out there."
     },
     unsolved: {
       title: "Unsolved",
-      caption: "Nothing on your report held up. The file goes in the drawer.",
-      audio: "audio/narrator/ending-unsolved.mp3"
+      caption: "Nothing on your report held up. The file goes in the drawer."
     }
   };
 
@@ -34,22 +30,15 @@ const Ending = (() => {
   const caption = document.getElementById("ending-caption");
   const rows = document.getElementById("ending-rows");
   const stats = document.getElementById("ending-stats");
-  const replayButton = root.querySelector("[data-action='replay-ending']");
-
-  let current = null;
 
   function labelFor(part, id) {
     const category = CHECKLIST.find((entry) => entry.id === part);
     return category.options.find((option) => option.id === id).label;
   }
 
-  function play() {
-    if (current) GameAudio.speak(current.audio, () => {});
-  }
-
   function show(report) {
     const verdict = Verdict.check(report);
-    current = ENDINGS[verdict.ending];
+    const current = ENDINGS[verdict.ending];
     root.dataset.ending = verdict.ending;
 
     stamp.textContent = verdict.ending === "solved" ? "Closed" : verdict.ending === "unsolved" ? "Cold" : "Doubtful";
@@ -77,15 +66,12 @@ const Ending = (() => {
       ". Evidence found: " + Game.foundCount() + " of " + CLUES.length + ".";
 
     root.classList.add("is-entered");
-    play();
   }
 
   function stop() {
     GameAudio.stopVoice();
     root.classList.remove("is-entered");
   }
-
-  replayButton.addEventListener("click", play);
 
   return { show, stop };
 })();
