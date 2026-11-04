@@ -33,6 +33,7 @@ const Game = (() => {
     collectClues,
     hasHeard: (suspect, question) => heard.has(id(suspect, question)),
     questionsLeft: () => left,
-    foundCount: () => found.size
+    foundCount: () => found.size,
+    isFound: (slot) => found.has(slot)
   };
 })();
