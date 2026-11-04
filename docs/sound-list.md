@@ -6,7 +6,7 @@ Files the game expects in `audio/sfx/` and `audio/narrator/`. Until they exist, 
 |------|----------------|---------------------------|--------|
 | `scream.mp3` | Opening, right after the first black screen | A single scream, distant and sharp | 1 to 2 s |
 | `glass-break.mp3` | About 1.2 s after the scream | Glass breaking, a window shattering | 1 to 2 s |
-| `room-tone.mp3` | Loops quietly under the title and case selection | Low empty room, faint hum | 20 to 40 s, loopable |
+| `tension-music.mp3` | Loops quietly under the whole game, quietest in the interviews | Tense, dark background music | 2 to 3 min |
 | `phone-ring.mp3` | When the call note appears | Old telephone ring | 2 to 3 s |
 | `paper-slide.mp3` | When an answer is chosen, and when going back | Paper sliding on a desk | under 1 s |
 | `chain-rattle.mp3` | When a locked tape is clicked | Short metal chain rattle | under 1 s |

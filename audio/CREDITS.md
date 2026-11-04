@@ -9,7 +9,7 @@ Anything taken from a free sound library goes here.
 | glass-break.mp3 | dragon-studio-glass-breaking-504033 (Pixabay), trimmed | dragon-studio | Pixabay Content License |
 | phone-ring.mp3 | freesound_community-022059_old-rotary-phone-ringing-68614 (Pixabay), trimmed | freesound_community | Pixabay Content License |
 | chain-rattle.mp3 | freesound_community-key-chain-78346 (Pixabay), trimmed | freesound_community | Pixabay Content License |
-| room-tone.mp3 | gd_salman-tension-ambience-355382 (Pixabay), faded | gd_salman | Pixabay Content License |
+| tension-music.mp3 | universfield-dark-crime-cinematic-background-499299 (Pixabay), faded and lowered | universfield | Pixabay Content License |
 | paper-slide.mp3 | Generated with ffmpeg (filtered noise) | Our team | Original |
 | tape-click.mp3 | Generated with ffmpeg (filtered noise) | Our team | Original |
 
