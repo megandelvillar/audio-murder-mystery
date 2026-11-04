@@ -1,54 +1,64 @@
-// Each suspect is an object. "answers" holds their recordings,
-// grouped by category. A category can have more than one recording.
-//
-// "file" is the path to the audio. "sfx" is an optional sound effect that
-// plays together with the answer (null if there is none).
-//
-// The files do not exist yet. We will record them and fill them in later.
+const QUESTION_BUDGET = 6;
 
 const suspects = [
   {
-    id: "suspect1",
-    name: "Suspect 1",            // TODO: real name
-    answers: {
-      location:      [{ file: "audio/suspect1/location-1.mp3", sfx: null }],
-      timeline:      [{ file: "audio/suspect1/timeline-1.mp3", sfx: null }],
-      relationships: [{ file: "audio/suspect1/relationships-1.mp3", sfx: null }],
-      actions:       [{ file: "audio/suspect1/actions-1.mp3", sfx: "audio/sfx/glass-break.mp3" }],
-      observations:  [{ file: "audio/suspect1/observations-1.mp3", sfx: null }],
-      alibi:         [{ file: "audio/suspect1/alibi-1.mp3", sfx: null }]
-    }
+    id: "scarlett",
+    name: "Scarlett Ackroyd",
+    age: 28,
+    role: "The daughter",
+    facts: [
+      ["Relation", "Armand's daughter. Her mother died when she was nine."],
+      ["Background", "Painter. Works in the carriage house behind the main house."],
+      ["On record", "Told her father at breakfast: \"I could kill you.\""]
+    ],
+    note: "Quick tongue. Funny when she is frightened."
   },
   {
-    id: "suspect2",
-    name: "Suspect 2",            // TODO: real name
-    answers: {
-      location:      [{ file: "audio/suspect2/location-1.mp3", sfx: null }],
-      timeline:      [{ file: "audio/suspect2/timeline-1.mp3", sfx: null }],
-      relationships: [{ file: "audio/suspect2/relationships-1.mp3", sfx: "audio/sfx/laughter.mp3" }],
-      actions:       [{ file: "audio/suspect2/actions-1.mp3", sfx: null }],
-      observations:  [{ file: "audio/suspect2/observations-1.mp3", sfx: "audio/sfx/car-crash.mp3" }],
-      alibi:         [{ file: "audio/suspect2/alibi-1.mp3", sfx: null }]
-    }
+    id: "verity",
+    name: "Verity Ackroyd",
+    age: 46,
+    role: "The wife",
+    facts: [
+      ["Relation", "Armand's second wife."],
+      ["Background", "Former stage actress."],
+      ["On record", "Confined to her bedroom since Tuesday with an illness."]
+    ],
+    note: "Gentle. Beautifully spoken. Calls everyone darling."
   },
   {
-    id: "suspect3",
-    name: "Suspect 3",            // TODO: real name
-    answers: {
-      location:      [{ file: "audio/suspect3/location-1.mp3", sfx: null }],
-      timeline:      [{ file: "audio/suspect3/timeline-1.mp3", sfx: null }],
-      relationships: [{ file: "audio/suspect3/relationships-1.mp3", sfx: null }],
-      actions:       [{ file: "audio/suspect3/actions-1.mp3", sfx: "audio/sfx/knife.mp3" }],
-      observations:  [{ file: "audio/suspect3/observations-1.mp3", sfx: null }],
-      alibi:         [{ file: "audio/suspect3/alibi-1.mp3", sfx: null }]
-    }
+    id: "julian",
+    name: "Julian Paton",
+    age: 23,
+    role: "The nephew",
+    facts: [
+      ["Relation", "Armand's nephew. Raised by him after Julian's mother died."],
+      ["Background", "Lives in the house, on his uncle's money."],
+      ["On record", "Was in the house when the body was found."]
+    ],
+    note: "Charming. Talks fast when he is nervous."
+  },
+  {
+    id: "paloma",
+    name: "Paloma Rogers",
+    age: 60,
+    role: "The housekeeper",
+    facts: [
+      ["Relation", "Housekeeper to the Ackroyd family."],
+      ["Background", "Thirty-four years in the house."],
+      ["On record", "Found the body at 11:15 and screamed."]
+    ],
+    note: "Warm and tired. Sees everything. Nobody ever asks her."
+  },
+  {
+    id: "dante",
+    name: "Dante Blunt",
+    age: 52,
+    role: "The partner",
+    facts: [
+      ["Relation", "Armand's business partner for thirty-one years."],
+      ["Background", "Former army reservist. Co-owner of the mill."],
+      ["On record", "Holds one of the only two keys to the cellar."]
+    ],
+    note: "Big voice. Laughs a beat too late."
   }
 ];
-
-// Returns one recording for a suspect and a category.
-// If the category has several recordings, it picks one at random.
-function getAnswer(suspect, categoryId) {
-  const options = suspect.answers[categoryId];
-  if (!options || options.length === 0) return null;
-  return options[Math.floor(Math.random() * options.length)];
-}
