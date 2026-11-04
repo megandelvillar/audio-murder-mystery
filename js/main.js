@@ -10,7 +10,8 @@
     gate: document.getElementById("screen-gate"),
     landing: document.getElementById("screen-landing"),
     cases: document.getElementById("screen-cases"),
-    casefile: document.getElementById("screen-casefile")
+    casefile: document.getElementById("screen-casefile"),
+    suspects: document.getElementById("screen-suspects")
   };
   const wipe = document.getElementById("wipe");
   const soundToggle = document.getElementById("sound-toggle");
@@ -163,6 +164,20 @@
     GameAudio.play("paper", { volume: 0.6 });
     CaseFile.leave();
     wipeTo("cases");
+  });
+
+  screens.casefile.querySelector("[data-action='suspects']").addEventListener("click", async () => {
+    GameAudio.play("paper", { volume: 0.6 });
+    CaseFile.leave();
+    await wipeTo("suspects");
+    SuspectFiles.enter();
+  });
+
+  screens.suspects.querySelector("[data-action='back']").addEventListener("click", async () => {
+    GameAudio.play("paper", { volume: 0.6 });
+    SuspectFiles.leave();
+    await wipeTo("casefile");
+    CaseFile.enter();
   });
 
   soundToggle.addEventListener("click", () => {
