@@ -110,6 +110,7 @@ const Interview = (() => {
     const fresh = Game.collectClues(id, key);
     fresh.forEach((clue) => CaseFile.unlock(clue.slot, { title: clue.title, text: clue.text }));
     if (fresh.length) showToast(fresh);
+    Evidence.refresh();
     refresh();
   }
 
