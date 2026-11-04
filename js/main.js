@@ -5,11 +5,13 @@
   const OPENING_LINE = "A murder has occurred, Sherlock. Are you available?";
   const DOUBT_LINE = "Someone who has run out of time. A murder has occurred. Are you available?";
   const CLOSING_LINE = "Good. Put your headphones on.";
+  const NO_HELP_SCREENS = ["gate", "landing", "howto"];
   const NOTEBOOK_SCREENS = ["casefile", "suspects", "interview", "accuse"];
 
   const screens = {
     gate: document.getElementById("screen-gate"),
     landing: document.getElementById("screen-landing"),
+    howto: document.getElementById("screen-howto"),
     cases: document.getElementById("screen-cases"),
     casefile: document.getElementById("screen-casefile"),
     suspects: document.getElementById("screen-suspects"),
@@ -33,6 +35,8 @@
       element.classList.toggle("is-active", key === name);
     });
     Notebook.show(NOTEBOOK_SCREENS.includes(name));
+    Evidence.show(NOTEBOOK_SCREENS.includes(name));
+    Help.show(!NO_HELP_SCREENS.includes(name));
   }
 
   async function wipeTo(name) {
@@ -109,7 +113,7 @@
 
     await typeText(callText, CLOSING_LINE);
     await wait(1000);
-    await wipeTo("cases");
+    await wipeTo("howto");
   }
 
   let pointerFrame = 0;
@@ -151,6 +155,11 @@
   callOptions.addEventListener("click", (event) => {
     const button = event.target.closest("button");
     if (button) handleAnswer(button.dataset.answer);
+  });
+
+  screens.howto.querySelector("[data-action='start']").addEventListener("click", () => {
+    GameAudio.play("paper", { volume: 0.6 });
+    wipeTo("cases");
   });
 
   screens.cases.addEventListener("pointermove", trackPointer);
@@ -229,6 +238,7 @@
     Game.reset();
     CaseFile.reset();
     Notebook.reset();
+    Evidence.refresh();
     SuspectFiles.reset();
     Interview.reset();
     Accusation.reset();

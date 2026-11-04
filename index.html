@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="css/suspects.css">
   <link rel="stylesheet" href="css/interview.css">
   <link rel="stylesheet" href="css/notebook.css">
+  <link rel="stylesheet" href="css/evidence.css">
+  <link rel="stylesheet" href="css/help.css">
   <link rel="stylesheet" href="css/accusation.css">
   <link rel="stylesheet" href="css/ending.css">
 </head>
@@ -56,6 +58,9 @@
   <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="true">Sound on</button>
 
   <button class="notebook-toggle" id="notebook-toggle" type="button" hidden>Notebook</button>
+  <button class="help-toggle" id="help-toggle" type="button" hidden>? Help</button>
+
+  <button class="evidence-toggle" id="evidence-toggle" type="button" hidden>Evidence</button>
 
   <main id="app">
     <section class="screen screen--gate is-active" id="screen-gate">
@@ -177,6 +182,16 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="screen screen--howto" id="screen-howto">
+      <div class="howto">
+        <p class="howto__label">Before you start</p>
+        <h2 class="howto__title">How to play</h2>
+        <ol class="steps" data-help-steps></ol>
+        <p class="howto__tip">Headphones on. The clues are in the voices.</p>
+        <button class="btn btn--stamp" type="button" data-action="start">Start investigating</button>
       </div>
     </section>
 
@@ -515,6 +530,26 @@
     </article>
   </div>
 
+  <div class="evidence" id="evidence" hidden>
+    <div class="evidence__shade" data-action="close"></div>
+    <article class="evidence__paper" role="dialog" aria-modal="true" aria-labelledby="evidence-title">
+      <button class="evidence__close" type="button" data-action="close" aria-label="Close the evidence">&times;</button>
+      <p class="evidence__label">Everything you have found</p>
+      <h2 class="evidence__title" id="evidence-title">Evidence</h2>
+      <p class="evidence__count" id="evidence-count"></p>
+      <ol class="evidence__list" id="evidence-list"></ol>
+    </article>
+  </div>
+
+  <div class="help" id="help" hidden>
+    <div class="help__shade" data-action="close"></div>
+    <article class="help__panel" role="dialog" aria-modal="true" aria-labelledby="help-title">
+      <button class="help__close" type="button" data-action="close" aria-label="Close the help">&times;</button>
+      <h2 class="help__title" id="help-title">How to play</h2>
+      <ol class="steps" data-help-steps></ol>
+    </article>
+  </div>
+
   <script src="js/audio.js"></script>
   <script src="js/casefile.js"></script>
   <script src="js/suspects.js"></script>
@@ -524,6 +559,8 @@
   <script src="js/portraits.js"></script>
   <script src="js/checklist.js"></script>
   <script src="js/notebook.js"></script>
+  <script src="js/evidence.js"></script>
+  <script src="js/help.js"></script>
   <script src="js/suspectfiles.js"></script>
   <script src="js/interview.js"></script>
   <script src="js/verdict.js"></script>
