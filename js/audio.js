@@ -62,10 +62,24 @@ const GameAudio = (() => {
   }
 
   let cancelVoice = () => {};
+  let pauseCurrent = () => {};
+  let resumeCurrent = () => {};
+  let voicePaused = false;
 
   function stopVoice() {
     cancelVoice();
     cancelVoice = () => {};
+    pauseCurrent = () => {};
+    resumeCurrent = () => {};
+    voicePaused = false;
+  }
+
+  function pauseVoice() {
+    pauseCurrent();
+  }
+
+  function resumeVoice() {
+    resumeCurrent();
   }
 
   // Plays one recorded answer. A missing file counts as a short silent answer.
@@ -74,6 +88,7 @@ const GameAudio = (() => {
     const audio = new Audio(src);
     audio.muted = muted;
     let finished = false;
+    let failed = false;
     let timer = 0;
 
     const finish = () => {
@@ -92,11 +107,50 @@ const GameAudio = (() => {
       voice = null;
     };
 
+    pauseCurrent = () => {
+      if (finished || voicePaused) return;
+      voicePaused = true;
+      clearTimeout(timer);
+      audio.pause();
+    };
+
+    resumeCurrent = () => {
+      if (finished || !voicePaused) return;
+      voicePaused = false;
+      if (failed) timer = setTimeout(finish, SILENT_ANSWER_MS);
+      else audio.play().catch(() => {});
+    };
+
     audio.addEventListener("ended", finish);
     audio.addEventListener("error", () => {
-      timer = setTimeout(finish, SILENT_ANSWER_MS);
+      failed = true;
+      if (!voicePaused) timer = setTimeout(finish, SILENT_ANSWER_MS);
     });
     audio.play().catch(() => {});
+  }
+
+  // Pauses a playing sound, resumes a paused one, or starts it from the beginning.
+  function toggle(name) {
+    const audio = sounds.get(name);
+    if (!audio) return "idle";
+    if (!audio.paused) {
+      audio.pause();
+      return "paused";
+    }
+    if (audio.currentTime > 0 && !audio.ended) {
+      audio.volume = 1;
+      audio.play().catch(() => {});
+      return "playing";
+    }
+    play(name);
+    return "playing";
+  }
+
+  function stop(name) {
+    const audio = sounds.get(name);
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
   }
 
   function toggleMute() {
@@ -108,5 +162,18 @@ const GameAudio = (() => {
     return muted;
   }
 
-  return { prime, play, fadeOut, speak, stopVoice, toggleMute };
+  return {
+    prime,
+    play,
+    fadeOut,
+    speak,
+    stopVoice,
+    pauseVoice,
+    resumeVoice,
+    isVoicePaused: () => voicePaused,
+    toggle,
+    stop,
+    element: (name) => sounds.get(name),
+    toggleMute
+  };
 })();
