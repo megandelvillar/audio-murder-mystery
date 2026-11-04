@@ -10,12 +10,11 @@ a car crash, laughter) that match what the suspect is remembering.
 
 ## How it will work
 
-- 3 suspects, each one is an object in the code.
-- Each suspect has around 10 pre-recorded audio answers.
-- The answers are grouped into categories (location, timeline, relationship,
-  actions, observations, alibi).
-- The user picks a suspect and a question. The code finds the matching category
-  and plays one of the recordings.
+- 5 suspects, each one is an object in the code.
+- Each suspect has 10 pre-recorded audio answers.
+- Every suspect answers the same ten questions, with one recording each.
+- The investigator has a budget of six questions across all suspects.
+- Some answers unlock locked evidence in the case file.
 - Suspects can only answer with the recordings they have. No new answers.
 
 ## Folder structure
