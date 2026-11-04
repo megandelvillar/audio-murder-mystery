@@ -10,8 +10,11 @@ const GameAudio = (() => {
     intro: "audio/narrator/intro.mp3"
   };
 
+  const SILENT_ANSWER_MS = 3000;
+
   const sounds = new Map();
   let muted = false;
+  let voice = null;
 
   function prime() {
     Object.entries(sources).forEach(([name, src]) => {
@@ -58,13 +61,52 @@ const GameAudio = (() => {
     }, duration / steps);
   }
 
+  let cancelVoice = () => {};
+
+  function stopVoice() {
+    cancelVoice();
+    cancelVoice = () => {};
+  }
+
+  // Plays one recorded answer. A missing file counts as a short silent answer.
+  function speak(src, onDone) {
+    stopVoice();
+    const audio = new Audio(src);
+    audio.muted = muted;
+    let finished = false;
+    let timer = 0;
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timer);
+      voice = null;
+      onDone();
+    };
+
+    voice = audio;
+    cancelVoice = () => {
+      finished = true;
+      clearTimeout(timer);
+      audio.pause();
+      voice = null;
+    };
+
+    audio.addEventListener("ended", finish);
+    audio.addEventListener("error", () => {
+      timer = setTimeout(finish, SILENT_ANSWER_MS);
+    });
+    audio.play().catch(() => {});
+  }
+
   function toggleMute() {
     muted = !muted;
     sounds.forEach((audio) => {
       audio.muted = muted;
     });
+    if (voice) voice.muted = muted;
     return muted;
   }
 
-  return { prime, play, fadeOut, toggleMute };
+  return { prime, play, fadeOut, speak, stopVoice, toggleMute };
 })();
