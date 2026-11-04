@@ -374,3 +374,33 @@
     transform: none;
   }
 }
+
+
+.btn.is-playing {
+  background: var(--burgundy);
+  border-color: var(--burgundy-light);
+}
+
+.btn.is-paused,
+.btn.pause.is-paused {
+  background: #5a544a;
+  border-color: var(--bone-dim);
+  color: var(--bone);
+}
+
+.pause {
+  margin-top: 0.6rem;
+}
+
+.slip.is-playing {
+  background: var(--burgundy);
+  color: var(--bone);
+}
+
+.slip.is-playing .slip__number {
+  color: var(--bone);
+}
+
+.slip.is-paused {
+  background: #8d867a;
+}
