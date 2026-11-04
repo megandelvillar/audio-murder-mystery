@@ -440,6 +440,46 @@
         <p class="toast" id="toast" role="status" hidden></p>
       </div>
     </section>
+
+    <section class="screen screen--accuse" id="screen-accuse">
+      <div class="accuse" id="accuse">
+        <header class="topbar">
+          <span>Homicide Division &mdash; Final Report</span>
+          <span class="rec">Rec</span>
+        </header>
+
+        <div class="accuse__head">
+          <p class="accuse__label">Tape No. 1</p>
+          <h2 class="accuse__title">File your report</h2>
+          <p class="accuse__lede">Name the killer, the motive and the way in. Once you file it, the case is closed.</p>
+        </div>
+
+        <div class="accuse__groups" id="accuse-groups"></div>
+
+        <footer class="accuse__actions">
+          <button class="btn" type="button" data-action="back">Keep investigating</button>
+          <button class="btn btn--stamp" type="button" data-action="file" aria-disabled="true">File the report</button>
+          <p class="accuse__hint" id="accuse-hint" aria-live="polite"></p>
+        </footer>
+      </div>
+    </section>
+
+    <section class="screen screen--ending" id="screen-ending">
+      <div class="ending" id="ending" data-ending="unsolved">
+        <p class="ending__label">Tape No. 1 &mdash; Dead Heat on Hollow Street</p>
+        <p class="ending__stamp" id="ending-stamp" aria-hidden="true"></p>
+        <h2 class="ending__title" id="ending-title"></h2>
+        <p class="ending__caption" id="ending-caption"></p>
+
+        <ul class="verdict" id="ending-rows"></ul>
+        <p class="ending__stats" id="ending-stats"></p>
+
+        <div class="ending__actions">
+          <button class="btn" type="button" data-action="replay-ending">Play the recording again</button>
+          <button class="btn btn--stamp" type="button" data-action="again">Play again</button>
+        </div>
+      </div>
+    </section>
   </main>
 
   <div class="wipe" id="wipe" aria-hidden="true"></div>
