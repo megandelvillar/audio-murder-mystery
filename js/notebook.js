@@ -108,6 +108,7 @@ const Notebook = (() => {
   return {
     show,
     close,
+    reset: clear,
     state: (category, option) => marks.get(markKey(category, option)) || ""
   };
 })();
