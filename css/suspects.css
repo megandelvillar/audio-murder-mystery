@@ -327,6 +327,11 @@
   border-bottom: 1px dashed rgba(11, 10, 10, 0.35);
 }
 
+.sheet__interview {
+  justify-self: start;
+  margin-top: 1.2rem;
+}
+
 .sheet__note {
   margin: 0.8rem 0 0;
   font-family: var(--font-hand);
