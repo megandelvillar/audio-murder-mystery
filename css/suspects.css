@@ -192,3 +192,13 @@
   gap: 1.2rem;
 }
 
+.btn--ghost {
+  border-color: var(--bone-dim);
+  color: var(--bone-dim);
+  box-shadow: 4px 4px 0 var(--ink-soft);
+}
+
+.btn--ghost.is-rattling {
+  animation: rattle 0.5s linear;
+}
+
