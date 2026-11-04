@@ -102,5 +102,10 @@ const SuspectFiles = (() => {
 
   renderCards();
 
-  return { enter, leave, lastId: () => lastId };
+  function reset() {
+    lastId = null;
+    list.querySelectorAll(".file").forEach((file) => file.classList.remove("is-read"));
+  }
+
+  return { enter, leave, reset, lastId: () => lastId };
 })();
