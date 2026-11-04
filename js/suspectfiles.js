@@ -1,10 +1,7 @@
 const SuspectFiles = (() => {
-  const IMAGE_PATH = "images/characters/";
-
   const root = document.getElementById("suspects");
   const list = document.getElementById("files");
   const budget = document.getElementById("suspects-budget");
-  const interviewButton = root.querySelector("[data-action='interview']");
 
   const sheet = document.getElementById("sheet");
   const sheetPhoto = document.getElementById("sheet-photo");
@@ -15,25 +12,8 @@ const SuspectFiles = (() => {
   const sheetNote = document.getElementById("sheet-note");
   const sheetClose = sheet.querySelector(".sheet__close");
 
-  const reviewed = new Set();
   let opener = null;
-
-  // Draws a drawing from images/characters, or a silhouette until the file exists.
-  function fillPhoto(container, suspect, kind) {
-    container.innerHTML =
-      '<svg class="photo__blank" viewBox="0 0 100 100" aria-hidden="true">' +
-      '<rect width="100" height="100" fill="url(#hatch-bone)" opacity=".12"/>' +
-      '<circle cx="50" cy="38" r="17" fill="#e9e1cf" opacity=".16"/>' +
-      '<path d="M16 100 C16 70 32 60 50 60 C68 60 84 70 84 100 Z" fill="#e9e1cf" opacity=".16"/>' +
-      "</svg>";
-    const image = new Image();
-    image.className = "photo__image";
-    image.alt = suspect.name + ", " + suspect.role.toLowerCase();
-    image.addEventListener("load", () => {
-      container.replaceChildren(image);
-    });
-    image.src = IMAGE_PATH + suspect.id + "-" + kind + ".png";
-  }
+  let lastId = null;
 
   function renderCards() {
     suspects.forEach((suspect, index) => {
@@ -51,13 +31,14 @@ const SuspectFiles = (() => {
         "</button>";
       item.querySelector(".file__name").textContent = suspect.name;
       item.querySelector(".file__role").textContent = suspect.role + ", " + suspect.age;
-      fillPhoto(item.querySelector(".file__photo"), suspect, "portrait");
+      Portraits.fill(item.querySelector(".file__photo"), suspect, "portrait");
       list.appendChild(item);
     });
   }
 
   function updateBudget() {
-    budget.textContent = QUESTION_BUDGET + " questions left";
+    const left = Game.questionsLeft();
+    budget.textContent = left + (left === 1 ? " question left" : " questions left");
   }
 
   function openSheet(suspect, card) {
@@ -74,7 +55,7 @@ const SuspectFiles = (() => {
       detail.textContent = text;
       sheetFacts.append(term, detail);
     });
-    fillPhoto(sheetPhoto, suspect, "idle");
+    Portraits.fill(sheetPhoto, suspect, "idle");
 
     sheet.hidden = false;
     void sheet.offsetWidth;
@@ -82,7 +63,7 @@ const SuspectFiles = (() => {
     GameAudio.play("paper", { volume: 0.6 });
     sheetClose.focus();
 
-    reviewed.add(suspect.id);
+    lastId = suspect.id;
     card.closest(".file").classList.add("is-read");
   }
 
@@ -119,14 +100,7 @@ const SuspectFiles = (() => {
     if (event.key === "Escape") closeSheet();
   });
 
-  interviewButton.addEventListener("click", () => {
-    interviewButton.classList.remove("is-rattling");
-    void interviewButton.offsetWidth;
-    interviewButton.classList.add("is-rattling");
-    GameAudio.play("rattle", { volume: 0.7 });
-  });
-
   renderCards();
 
-  return { enter, leave };
+  return { enter, leave, lastId: () => lastId };
 })();
