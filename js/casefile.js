@@ -7,7 +7,6 @@ const CaseFile = (() => {
   const replayButton = root.querySelector("[data-action='replay']");
 
   const unlocked = new Set();
-  let narrated = false;
 
   function renderTags() {
     for (let index = 1; index <= CLUE_COUNT; index += 1) {
@@ -48,14 +47,13 @@ const CaseFile = (() => {
   function enter() {
     root.closest(".screen").scrollTop = 0;
     root.classList.add("is-entered");
-    if (!narrated) {
-      narrated = true;
-      GameAudio.play("intro");
-    }
+    watchRecording();
+    syncRecording();
   }
 
   function leave() {
-    GameAudio.fadeOut("intro", 600);
+    GameAudio.stop("intro");
+    syncRecording();
     root.classList.remove("is-entered");
   }
 
@@ -64,11 +62,32 @@ const CaseFile = (() => {
     if (item && !item.classList.contains("is-open")) rattle(item);
   });
 
-  replayButton.addEventListener("click", () => GameAudio.play("intro"));
+  // The button shows red while the recording plays and grey while it is paused.
+  function syncRecording() {
+    const audio = GameAudio.element("intro");
+    const playing = Boolean(audio) && !audio.paused;
+    const paused = Boolean(audio) && audio.paused && audio.currentTime > 0 && !audio.ended;
+    replayButton.textContent = playing ? "Pause recording" : paused ? "Resume recording" : "Play recording";
+    replayButton.classList.toggle("is-playing", playing);
+    replayButton.classList.toggle("is-paused", paused);
+  }
+
+  replayButton.addEventListener("click", () => {
+    GameAudio.toggle("intro");
+    syncRecording();
+  });
+
+  // The sound exists only after the first click, so the listeners are added on first use.
+  let watching = false;
+  function watchRecording() {
+    const audio = GameAudio.element("intro");
+    if (watching || !audio) return;
+    watching = true;
+    ["ended", "pause", "play"].forEach((name) => audio.addEventListener(name, syncRecording));
+  }
 
   function reset() {
     unlocked.clear();
-    narrated = false;
     list.replaceChildren();
     renderTags();
     updateCount();
