@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/cases.css">
   <link rel="stylesheet" href="css/casefile.css">
   <link rel="stylesheet" href="css/suspects.css">
+  <link rel="stylesheet" href="css/interview.css">
 </head>
 <body>
   <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
@@ -387,6 +388,51 @@
             <p class="sheet__note" id="sheet-note"></p>
           </div>
         </article>
+      </div>
+    </section>
+    <section class="screen screen--interview" id="screen-interview">
+      <div class="interview" id="interview">
+        <header class="topbar">
+          <span>Homicide Division &mdash; Interview Room</span>
+          <span class="rec">Rec</span>
+        </header>
+
+        <div class="interview__bar">
+          <ul class="tabs" id="interview-tabs"></ul>
+          <div class="counters" aria-live="polite">
+            <p class="counters__budget" id="interview-budget"></p>
+            <p class="counters__evidence" id="interview-evidence"></p>
+          </div>
+        </div>
+
+        <div class="interview__main">
+          <figure class="stage" id="stage">
+            <div class="stage__photo">
+              <div class="stage__layer" id="stage-idle"></div>
+              <div class="stage__layer stage__layer--talking" id="stage-talking"></div>
+            </div>
+            <figcaption class="stage__table">
+              <span class="stage__plate">
+                <strong id="stage-name"></strong>
+                <span id="stage-role"></span>
+              </span>
+              <span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+            </figcaption>
+          </figure>
+
+          <section class="questions" aria-labelledby="questions-title">
+            <h3 class="questions__title" id="questions-title">Ask a question</h3>
+            <ol class="slips" id="questions"></ol>
+            <p class="questions__hint" id="interview-hint"></p>
+          </section>
+        </div>
+
+        <footer class="interview__actions">
+          <button class="btn" type="button" data-action="back">Back to the files</button>
+          <button class="btn btn--ghost" type="button" data-action="conclude" aria-disabled="true">Sum up the case</button>
+        </footer>
+
+        <p class="toast" id="toast" role="status" hidden></p>
       </div>
     </section>
   </main>
