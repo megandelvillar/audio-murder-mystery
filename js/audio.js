@@ -2,7 +2,7 @@ const GameAudio = (() => {
   const sources = {
     scream: "audio/sfx/scream.mp3",
     glass: "audio/sfx/glass-break.mp3",
-    ambience: "audio/sfx/room-tone.mp3",
+    ambience: "audio/sfx/tension-music.mp3",
     phone: "audio/sfx/phone-ring.mp3",
     paper: "audio/sfx/paper-slide.mp3",
     rattle: "audio/sfx/chain-rattle.mp3",
@@ -43,6 +43,11 @@ const GameAudio = (() => {
     audio.volume = volume;
     audio.play().catch(() => {});
     return audio;
+  }
+
+  function setVolume(name, volume) {
+    const audio = sounds.get(name);
+    if (audio) audio.volume = volume;
   }
 
   function fadeOut(name, duration = 1500) {
@@ -165,6 +170,7 @@ const GameAudio = (() => {
   return {
     prime,
     play,
+    setVolume,
     fadeOut,
     speak,
     stopVoice,

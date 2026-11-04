@@ -5,6 +5,8 @@
   const OPENING_LINE = "A murder has occurred, Sherlock. Are you available?";
   const DOUBT_LINE = "Someone who has run out of time. A murder has occurred. Are you available?";
   const CLOSING_LINE = "Good. Put your headphones on.";
+  // The tense music stays quiet under the voices: quietest in the interviews.
+  const MUSIC_LEVEL = { landing: 0.3, howto: 0.3, cases: 0.3, casefile: 0.1, suspects: 0.15, interview: 0.06, accuse: 0.15, ending: 0 };
   const NO_HELP_SCREENS = ["gate", "landing", "howto"];
   const NOTEBOOK_SCREENS = ["casefile", "suspects", "interview", "accuse"];
 
@@ -34,6 +36,7 @@
     Object.entries(screens).forEach(([key, element]) => {
       element.classList.toggle("is-active", key === name);
     });
+    GameAudio.setVolume("ambience", MUSIC_LEVEL[name] ?? 0.2);
     Notebook.show(NOTEBOOK_SCREENS.includes(name));
     Evidence.show(NOTEBOOK_SCREENS.includes(name));
     Help.show(!NO_HELP_SCREENS.includes(name));
