@@ -5,7 +5,7 @@
   const OPENING_LINE = "A murder has occurred, Sherlock. Are you available?";
   const DOUBT_LINE = "Someone who has run out of time. A murder has occurred. Are you available?";
   const CLOSING_LINE = "Good. Put your headphones on.";
-  const NOTEBOOK_SCREENS = ["casefile", "suspects", "interview"];
+  const NOTEBOOK_SCREENS = ["casefile", "suspects", "interview", "accuse"];
 
   const screens = {
     gate: document.getElementById("screen-gate"),
@@ -13,7 +13,9 @@
     cases: document.getElementById("screen-cases"),
     casefile: document.getElementById("screen-casefile"),
     suspects: document.getElementById("screen-suspects"),
-    interview: document.getElementById("screen-interview")
+    interview: document.getElementById("screen-interview"),
+    accuse: document.getElementById("screen-accuse"),
+    ending: document.getElementById("screen-ending")
   };
   const wipe = document.getElementById("wipe");
   const soundToggle = document.getElementById("sound-toggle");
@@ -199,6 +201,39 @@
     Interview.leave();
     await wipeTo("suspects");
     SuspectFiles.enter();
+  });
+
+  screens.interview.querySelector("[data-action='conclude']").addEventListener("click", async () => {
+    GameAudio.play("paper", { volume: 0.6 });
+    Interview.leave();
+    await wipeTo("accuse");
+    Accusation.enter();
+  });
+
+  screens.accuse.querySelector("[data-action='back']").addEventListener("click", async () => {
+    GameAudio.play("paper", { volume: 0.6 });
+    Accusation.leave();
+    await wipeTo("interview");
+    Interview.enter(Interview.currentId() || suspects[0].id);
+  });
+
+  Accusation.onFile(async (report) => {
+    Accusation.leave();
+    GameAudio.fadeOut("ambience", 1500);
+    await wipeTo("ending");
+    Ending.show(report);
+  });
+
+  screens.ending.querySelector("[data-action='again']").addEventListener("click", async () => {
+    Ending.stop();
+    Game.reset();
+    CaseFile.reset();
+    Notebook.reset();
+    SuspectFiles.reset();
+    Interview.reset();
+    Accusation.reset();
+    await wipeTo("cases");
+    GameAudio.play("ambience", { loop: true, volume: 0.3 });
   });
 
   soundToggle.addEventListener("click", () => {
