@@ -5,7 +5,6 @@ const CaseFile = (() => {
   const list = document.getElementById("clues-list");
   const count = document.getElementById("clues-count");
   const replayButton = root.querySelector("[data-action='replay']");
-  const suspectsButton = root.querySelector("[data-action='suspects']");
 
   const unlocked = new Set();
   let narrated = false;
@@ -66,13 +65,6 @@ const CaseFile = (() => {
   });
 
   replayButton.addEventListener("click", () => GameAudio.play("intro"));
-
-  suspectsButton.addEventListener("click", () => {
-    suspectsButton.classList.remove("is-rattling");
-    void suspectsButton.offsetWidth;
-    suspectsButton.classList.add("is-rattling");
-    GameAudio.play("rattle", { volume: 0.7 });
-  });
 
   renderTags();
   updateCount();
