@@ -14,6 +14,7 @@ const Interview = (() => {
   const stageRole = document.getElementById("stage-role");
   const list = document.getElementById("questions");
   const hint = document.getElementById("interview-hint");
+  const pauseButton = document.getElementById("interview-pause");
   const toast = document.getElementById("toast");
 
   let current = null;
@@ -57,12 +58,20 @@ const Interview = (() => {
       tab.setAttribute("aria-current", String(current && tab.dataset.id === current.id));
     });
 
+    const paused = Boolean(pending) && GameAudio.isVoicePaused();
+    pauseButton.hidden = !pending;
+    pauseButton.textContent = paused ? "Resume" : "Pause";
+    pauseButton.classList.toggle("is-paused", paused);
+
     list.querySelectorAll(".slip").forEach((slip) => {
       const heard = Game.hasHeard(current.id, slip.dataset.key);
+      const active = Boolean(pending) && pending.key === slip.dataset.key;
+      slip.classList.toggle("is-playing", active && !paused);
+      slip.classList.toggle("is-paused", active && paused);
       slip.classList.toggle("is-heard", heard);
       const locked = !heard && left === 0;
       slip.classList.toggle("is-locked", locked);
-      slip.setAttribute("aria-disabled", String(locked || Boolean(pending)));
+      slip.setAttribute("aria-disabled", String((locked || Boolean(pending)) && !active));
     });
 
     if (pending) {
@@ -83,9 +92,10 @@ const Interview = (() => {
     mouthTimer = setInterval(() => stage.classList.toggle("is-open"), MOUTH_MS);
   }
 
-  function stopMouth() {
+  function stopMouth(keepSpeaking = false) {
     clearInterval(mouthTimer);
-    stage.classList.remove("is-speaking", "is-open");
+    stage.classList.remove("is-open");
+    if (!keepSpeaking) stage.classList.remove("is-speaking");
   }
 
   function showToast(fresh) {
@@ -119,9 +129,26 @@ const Interview = (() => {
     finishAnswer();
   }
 
+  function togglePause() {
+    if (!pending) return;
+    if (GameAudio.isVoicePaused()) {
+      GameAudio.resumeVoice();
+      startMouth();
+    } else {
+      GameAudio.pauseVoice();
+      stopMouth(true);
+    }
+    refresh();
+  }
+
   function ask(button) {
-    if (pending || !current) return;
+    if (!current) return;
     const key = button.dataset.key;
+
+    if (pending) {
+      if (key === pending.key) togglePause();
+      return;
+    }
 
     if (!Game.ask(current.id, key)) {
       button.classList.remove("is-rattling");
@@ -159,8 +186,10 @@ const Interview = (() => {
 
   tabs.addEventListener("click", (event) => {
     const tab = event.target.closest(".tab");
-    if (tab && !pending && tab.dataset.id !== current.id) setSuspect(tab.dataset.id);
+    if (tab && tab.dataset.id !== current.id && (!pending || GameAudio.isVoicePaused())) setSuspect(tab.dataset.id);
   });
+
+  pauseButton.addEventListener("click", togglePause);
 
   list.addEventListener("click", (event) => {
     const slip = event.target.closest(".slip");
