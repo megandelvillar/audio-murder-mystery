@@ -1,0 +1,227 @@
+.screen--accuse {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--ink-deep);
+}
+
+.accuse {
+  display: grid;
+  gap: 1.6rem;
+  align-content: start;
+  min-height: 100vh;
+  padding: clamp(1rem, 3vw, 2.5rem) clamp(1rem, 5vw, 5rem) 6rem;
+  background:
+    radial-gradient(ellipse 65% 50% at 50% 40%, rgba(94, 15, 27, 0.36), transparent 70%),
+    repeating-linear-gradient(115deg, transparent 0 8px, rgba(233, 225, 207, 0.035) 8px 9px),
+    linear-gradient(#0d0809, #060404);
+}
+
+.accuse__label {
+  margin: 0;
+  font-family: var(--font-type);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+.accuse__title {
+  margin: 0.2rem 0 0.6rem;
+  font-weight: 900;
+  font-stretch: 62%;
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.accuse__lede {
+  max-width: 34rem;
+  margin: 0;
+  font-family: var(--font-type);
+  line-height: 1.5;
+  color: var(--bone-dim);
+}
+
+.accuse__groups {
+  display: grid;
+  gap: 1.8rem;
+}
+
+.group {
+  min-width: 0;
+  margin: 0;
+  padding: 1.2rem 1.4rem 1.4rem;
+  border: 2px solid var(--bone-dim);
+  background: rgba(233, 225, 207, 0.04);
+}
+
+.group__title {
+  padding: 0 0.6rem;
+  font-weight: 900;
+  font-stretch: 62%;
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.group__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.2rem;
+}
+
+.choice {
+  position: relative;
+  display: block;
+  cursor: var(--cursor-look);
+}
+
+.choice__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+}
+
+.choice__card {
+  display: grid;
+  gap: 0.5rem;
+  width: clamp(7.5rem, 14vw, 10.5rem);
+  padding: 0.5rem 0.5rem 0.7rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent 40%),
+    #cdbf9c;
+  color: var(--ink);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.65);
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+}
+
+.choice--text .choice__card {
+  width: auto;
+  min-width: 9rem;
+  padding: 0.8rem 1.1rem;
+}
+
+.choice__photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.choice__label {
+  font-weight: 900;
+  font-stretch: 62%;
+  font-size: 1.2rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.choice--text .choice__label {
+  font-family: var(--font-type);
+  font-weight: 400;
+  font-stretch: 100%;
+  font-size: 1rem;
+  text-transform: none;
+}
+
+.choice:hover .choice__card {
+  transform: translateY(-4px) rotate(-0.8deg);
+}
+
+.choice__input:focus-visible + .choice__card {
+  outline: 3px solid var(--bone);
+  outline-offset: 4px;
+}
+
+.choice__input:checked + .choice__card {
+  background: var(--paper);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.8), 0 0 0 4px var(--burgundy-light);
+  transform: translateY(-4px) rotate(-1.2deg);
+}
+
+.choice__input:checked + .choice__card::after {
+  content: "Accused";
+  position: absolute;
+  top: 0.9rem;
+  right: -0.3rem;
+  padding: 0 0.4em;
+  border: 2px solid var(--burgundy-light);
+  background: var(--paper);
+  color: var(--burgundy-light);
+  font-weight: 900;
+  font-stretch: 62%;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(10deg);
+}
+
+.choice--text .choice__input:checked + .choice__card::after {
+  content: "Chosen";
+  top: -0.7rem;
+}
+
+.accuse__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.4rem;
+}
+
+.accuse__hint {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--bone-dim);
+}
+
+.btn--stamp {
+  border-color: var(--burgundy-light);
+  background: var(--burgundy);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.btn--stamp:hover,
+.btn--stamp:focus-visible {
+  background: var(--burgundy-light);
+}
+
+.btn--stamp[aria-disabled="true"] {
+  background: transparent;
+  border-color: var(--bone-dim);
+  color: var(--bone-dim);
+  opacity: 0.7;
+}
+
+.btn--stamp.is-rattling {
+  animation: rattle 0.5s linear;
+}
+
+.accuse__head,
+.accuse__groups,
+.accuse__actions {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.is-entered .accuse__head,
+.is-entered .accuse__groups,
+.is-entered .accuse__actions {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s 0.3s, transform 0.6s 0.3s var(--ease-out);
+}
+
+@media (max-width: 600px) {
+  .group {
+    padding: 1rem 0.8rem 1.2rem;
+  }
+
+  .choice__card {
+    width: min(42vw, 10.5rem);
+  }
+}
