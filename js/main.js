@@ -11,7 +11,8 @@
     landing: document.getElementById("screen-landing"),
     cases: document.getElementById("screen-cases"),
     casefile: document.getElementById("screen-casefile"),
-    suspects: document.getElementById("screen-suspects")
+    suspects: document.getElementById("screen-suspects"),
+    interview: document.getElementById("screen-interview")
   };
   const wipe = document.getElementById("wipe");
   const soundToggle = document.getElementById("sound-toggle");
@@ -178,6 +179,24 @@
     SuspectFiles.leave();
     await wipeTo("casefile");
     CaseFile.enter();
+  });
+
+  async function openInterview() {
+    GameAudio.play("paper", { volume: 0.6 });
+    const id = SuspectFiles.lastId() || suspects[0].id;
+    SuspectFiles.leave();
+    await wipeTo("interview");
+    Interview.enter(id);
+  }
+
+  screens.suspects.querySelector("[data-action='interview']").addEventListener("click", openInterview);
+  screens.suspects.querySelector("[data-action='interview-suspect']").addEventListener("click", openInterview);
+
+  screens.interview.querySelector("[data-action='back']").addEventListener("click", async () => {
+    GameAudio.play("paper", { volume: 0.6 });
+    Interview.leave();
+    await wipeTo("suspects");
+    SuspectFiles.enter();
   });
 
   soundToggle.addEventListener("click", () => {
