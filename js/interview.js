@@ -103,7 +103,6 @@ const Interview = (() => {
     toast.hidden = false;
     void toast.offsetWidth;
     toast.classList.add("is-visible");
-    GameAudio.play("paper", { volume: 0.6 });
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => {
       toast.classList.remove("is-visible");
