@@ -443,6 +443,26 @@
 
   <div class="wipe" id="wipe" aria-hidden="true"></div>
 
+  <div class="notebook" id="notebook" hidden>
+    <div class="notebook__shade" data-action="close"></div>
+    <article class="notebook__paper" role="dialog" aria-modal="true" aria-labelledby="notebook-title">
+      <button class="notebook__close" type="button" data-action="close" aria-label="Close the notebook">&times;</button>
+      <header class="notebook__head">
+        <p class="notebook__label">Investigator&rsquo;s notes</p>
+        <h2 class="notebook__title" id="notebook-title">Who, how and why</h2>
+        <p class="notebook__lede">Click a line once to rule it out, twice to mark it as likely, a third time to clear it.</p>
+      </header>
+      <div class="notebook__grid" id="notebook-grid"></div>
+      <label class="notebook__scribbles">
+        <span>Scribbles</span>
+        <textarea id="notebook-scribbles" rows="4"></textarea>
+      </label>
+      <footer class="notebook__foot">
+        <button class="btn btn--ink" type="button" data-action="clear">Clear the page</button>
+      </footer>
+    </article>
+  </div>
+
   <script src="js/audio.js"></script>
   <script src="js/casefile.js"></script>
   <script src="js/suspects.js"></script>
