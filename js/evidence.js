@@ -34,7 +34,7 @@ const Evidence = (() => {
     void sheet.offsetWidth;
     sheet.classList.add("is-open");
     GameAudio.play("paper", { volume: 0.6 });
-    sheet.querySelector(".evidence__close").focus();
+    sheet.querySelector(".proofs__close").focus();
   }
 
   function close() {

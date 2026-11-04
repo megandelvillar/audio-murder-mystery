@@ -23,7 +23,7 @@
   transform: rotate(0deg) translateY(-3px);
 }
 
-.evidence {
+.proofs {
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -32,11 +32,11 @@
   padding: 1rem;
 }
 
-.evidence[hidden] {
+.proofs[hidden] {
   display: none;
 }
 
-.evidence__shade {
+.proofs__shade {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.82);
@@ -44,11 +44,11 @@
   transition: opacity 0.3s;
 }
 
-.evidence.is-open .evidence__shade {
+.proofs.is-open .proofs__shade {
   opacity: 1;
 }
 
-.evidence__paper {
+.proofs__paper {
   position: relative;
   width: min(56rem, 100%);
   max-height: 100%;
@@ -62,12 +62,12 @@
   transition: opacity 0.35s, transform 0.4s var(--ease-out);
 }
 
-.evidence.is-open .evidence__paper {
+.proofs.is-open .proofs__paper {
   opacity: 1;
   transform: rotate(0.3deg);
 }
 
-.evidence__close {
+.proofs__close {
   position: absolute;
   top: 0.4rem;
   right: 0.7rem;
@@ -79,12 +79,12 @@
   line-height: 1;
 }
 
-.evidence__close:hover,
-.evidence__close:focus-visible {
+.proofs__close:hover,
+.proofs__close:focus-visible {
   color: var(--burgundy);
 }
 
-.evidence__label {
+.proofs__label {
   margin: 0;
   font-family: var(--font-type);
   letter-spacing: 0.16em;
@@ -92,7 +92,7 @@
   color: var(--burgundy);
 }
 
-.evidence__title {
+.proofs__title {
   margin: 0.1rem 0 0.3rem;
   font-weight: 900;
   font-stretch: 62%;
@@ -101,7 +101,7 @@
   text-transform: uppercase;
 }
 
-.evidence__count {
+.proofs__count {
   margin: 0 0 1.2rem;
   font-family: var(--font-hand);
   font-size: 1.7rem;
@@ -109,7 +109,7 @@
   color: var(--burgundy);
 }
 
-.evidence__list {
+.proofs__list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
   gap: 1rem;
