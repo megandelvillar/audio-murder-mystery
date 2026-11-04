@@ -4,6 +4,7 @@ const Portraits = (() => {
   function load(suspect, kind, onLoad) {
     const image = new Image();
     image.className = "photo__image";
+    image.decoding = "async";
     image.alt = suspect.name + ", " + suspect.role.toLowerCase();
     image.addEventListener("load", () => onLoad(image));
     image.src = IMAGE_PATH + suspect.id + "-" + kind + ".png";
