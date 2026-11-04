@@ -55,3 +55,133 @@
   transform: rotate(-2deg);
 }
 
+.files {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2.4rem 1.4rem;
+  margin: 0;
+  padding: 1.5rem 0 0;
+  list-style: none;
+}
+
+.file {
+  --tilt: 0deg;
+  width: clamp(9.5rem, 16vw, 14rem);
+  opacity: 0;
+  transform: translateY(24px) rotate(var(--tilt));
+}
+
+.file:nth-child(1) { --tilt: -3deg; }
+.file:nth-child(2) { --tilt: 2deg; margin-top: 1.4rem; }
+.file:nth-child(3) { --tilt: -1.5deg; }
+.file:nth-child(4) { --tilt: 3deg; margin-top: 1.8rem; }
+.file:nth-child(5) { --tilt: -2.5deg; }
+
+.is-entered .file {
+  opacity: 1;
+  transform: rotate(var(--tilt));
+  transition: opacity 0.6s calc(var(--i) * 0.12s + 0.3s), transform 0.6s calc(var(--i) * 0.12s + 0.3s) var(--ease-out);
+}
+
+.file__button {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0.7rem 0.7rem 0.9rem;
+  border: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent 40%),
+    #cdbf9c;
+  color: var(--ink);
+  text-align: left;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.7);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+.file__button:hover,
+.file__button:focus-visible {
+  transform: translateY(-10px) rotate(calc(var(--tilt) * -1));
+  box-shadow: 0 26px 44px rgba(0, 0, 0, 0.8), 0 0 0 4px var(--burgundy-light);
+}
+
+.file__tab {
+  position: absolute;
+  top: -1.3rem;
+  left: 0.9rem;
+  padding: 0.25rem 0.8rem 0.1rem;
+  background: var(--burgundy);
+  color: var(--bone);
+  font-weight: 800;
+  font-stretch: 75%;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.file__photo,
+.sheet__photo {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--ink);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5) inset;
+}
+
+.file__photo {
+  aspect-ratio: 1 / 1;
+}
+
+.photo__blank,
+.photo__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.photo__image {
+  object-fit: cover;
+}
+
+.file__name {
+  display: block;
+  margin-top: 0.7rem;
+  font-weight: 900;
+  font-stretch: 62%;
+  font-size: 1.45rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.file__role {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: var(--font-type);
+  font-size: 0.85rem;
+  color: rgba(11, 10, 10, 0.75);
+}
+
+.file__stamp {
+  position: absolute;
+  top: 1.4rem;
+  right: 0.4rem;
+  padding: 0.05em 0.5em;
+  border: 3px solid var(--burgundy-light);
+  color: var(--burgundy-light);
+  font-weight: 900;
+  font-stretch: 62%;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: rotate(-12deg) scale(1.6);
+  transition: opacity 0.2s, transform 0.25s var(--ease-out);
+}
+
+.file.is-read .file__stamp {
+  opacity: 0.85;
+  transform: rotate(-12deg) scale(1);
+}
+
