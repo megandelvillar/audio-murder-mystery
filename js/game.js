@@ -21,8 +21,15 @@ const Game = (() => {
     return fresh;
   }
 
+  function reset() {
+    heard.clear();
+    found.clear();
+    left = QUESTION_BUDGET;
+  }
+
   return {
     ask,
+    reset,
     collectClues,
     hasHeard: (suspect, question) => heard.has(id(suspect, question)),
     questionsLeft: () => left,
